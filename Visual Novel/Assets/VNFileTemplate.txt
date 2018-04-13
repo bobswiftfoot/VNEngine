@@ -1,0 +1,3 @@
+[LineID][Text/Choice][Speaker Name][Text][BackgroundID][NumberOfCharaters][[CharacterID][CharacterImageID][CharacterPosition][...]][NextLineID]
+
+[LineID][Text/Choice][Choice1][Text][Variable][NextLine][Choice2][Text][Variable][NextLine]
