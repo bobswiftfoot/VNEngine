@@ -22,5 +22,18 @@ public class Conversation : MonoBehaviour
             _conversation = this;
     }
 
+    private void Reset()
+    {
+        if(FindObjectsOfType(typeof(Conversation)).Length > 1)
+        {
+            Debug.LogError("There is already a Conversation in scene");
+        }
+    }
+
     public List<Scene> Scenes;
+
+    public Conversation()
+    {
+        Scenes = new List<Scene>();
+    }
 }

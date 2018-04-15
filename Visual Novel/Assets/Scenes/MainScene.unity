@@ -1254,7 +1254,7 @@ GameObject:
   - component: {fileID: 1214865101}
   - component: {fileID: 1214865102}
   m_Layer: 0
-  m_Name: GameScene
+  m_Name: Conversation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1285,75 +1285,56 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Scenes:
-  - Name: asdf
+  - Name: Intro Scene
     BackgroundIndex: 0
     Background: Bedroom
     Music: {fileID: 0}
     Paths:
-    - PathName: 
+    - PathName: Intro Path
       DialogueLines:
       - Character: Nate
         CharacterIndex: 0
-        DialogueLine: Long line of text to test the text chat and a long message and
-          jsut gotta keep talking
+        DialogueLine: Hello
         DialogueAudio: {fileID: 0}
       - Character: Katie
         CharacterIndex: 1
-        DialogueLine: line 2
+        DialogueLine: This is the intro
         DialogueAudio: {fileID: 0}
       - Character: Sam
         CharacterIndex: 2
-        DialogueLine: Do you want to go to a new Scene?
+        DialogueLine: Would you like to continue in English or Spanish?
         DialogueAudio: {fileID: 0}
       QuestionLines:
-      - Response: Yes
-        LeadsToScene: 1
-        LeadsToPath: 0
-      - Response: No
+      - Response: English
         LeadsToScene: 0
         LeadsToPath: 1
-    - PathName: 
+      - Response: Spanish
+        LeadsToScene: 0
+        LeadsToPath: 2
+    - PathName: English Path
       DialogueLines:
       - Character: Nate
         CharacterIndex: 0
-        DialogueLine: This is the same scene but a new path
+        DialogueLine: This is the English Path
         DialogueAudio: {fileID: 0}
+      QuestionLines: []
+    - PathName: Spanish Path
+      DialogueLines:
       - Character: Nate
         CharacterIndex: 0
-        DialogueLine: 
+        DialogueLine: This is the Spanish Path
         DialogueAudio: {fileID: 0}
       QuestionLines: []
   - Name: 
     BackgroundIndex: 0
-    Background: Bedroom
+    Background: 
     Music: {fileID: 0}
-    Paths:
-    - PathName: 
-      DialogueLines: []
-      QuestionLines: []
-    - PathName: 
-      DialogueLines: []
-      QuestionLines: []
-    - PathName: 
-      DialogueLines: []
-      QuestionLines: []
-    - PathName: 
-      DialogueLines: []
-      QuestionLines: []
-    - PathName: 
-      DialogueLines: []
-      QuestionLines: []
-    - PathName: 
-      DialogueLines: []
-      QuestionLines: []
-  - Name: test
-    BackgroundIndex: 1
-    Background: Coffee Shop
+    Paths: []
+  - Name: 
+    BackgroundIndex: 0
+    Background: 
     Music: {fileID: 0}
-    Paths:
-    - PathName: 
-      DialogueLines: []
-      QuestionLines: []
+    Paths: []
 --- !u!1 &1407706384
 GameObject:
   m_ObjectHideFlags: 0
