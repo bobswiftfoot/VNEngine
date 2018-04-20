@@ -181,6 +181,51 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 111357241}
+--- !u!1 &150020651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 150020653}
+  - component: {fileID: 150020652}
+  m_Layer: 0
+  m_Name: 'Scene: 1'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &150020652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 150020651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9771a337731eed04c85f9f492740936e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 'Scene: 1'
+  BackgroundIndex: 0
+  Background: Bedroom
+  Music: {fileID: 0}
+  Paths: []
+--- !u!4 &150020653
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 150020651}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1214865101}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &237506481
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,6 +432,98 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &263742714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 263742716}
+  - component: {fileID: 263742715}
+  m_Layer: 0
+  m_Name: PathNameTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &263742715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 263742714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4588f890c3e2a40428eaa48aef875fdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PathName: PathNameTest
+  PathOptions:
+  - Type: 0
+    Character: Nate
+    CharacterIndex: 0
+    DialogueLine: test
+    DialogueAudio: {fileID: 0}
+    Action: 0
+    Direction: 0
+    Position: 0
+    Orientation: 0
+    BackgroundArt: {fileID: 0}
+  - Type: 0
+    Character: Nate
+    CharacterIndex: 0
+    DialogueLine: 123
+    DialogueAudio: {fileID: 0}
+    Action: 0
+    Direction: 0
+    Position: 0
+    Orientation: 0
+    BackgroundArt: {fileID: 0}
+  - Type: 1
+    Character: 
+    CharacterIndex: 0
+    DialogueLine: 
+    DialogueAudio: {fileID: 0}
+    Action: 0
+    Direction: 3
+    Position: 3
+    Orientation: 0
+    BackgroundArt: {fileID: 0}
+  - Type: 2
+    Character: 
+    CharacterIndex: 0
+    DialogueLine: 
+    DialogueAudio: {fileID: 0}
+    Action: 0
+    Direction: 0
+    Position: 0
+    Orientation: 0
+    BackgroundArt: {fileID: 21300000, guid: 9bee66022715b7647849a5aa5358e8cd, type: 3}
+  QuestionLines:
+  - Response: 
+    LeadsToScene: 0
+    LeadsToPath: 0
+  - Response: 
+    LeadsToScene: 0
+    LeadsToPath: 0
+  - Response: 
+    LeadsToScene: 0
+    LeadsToPath: 0
+--- !u!4 &263742716
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 263742714}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1632784127}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &266761386
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,6 +974,51 @@ MonoBehaviour:
     BackgroundSprite: {fileID: 21300000, guid: 9bee66022715b7647849a5aa5358e8cd, type: 3}
   - BackgroundName: Coffee Shop
     BackgroundSprite: {fileID: 21300000, guid: 9bee66022715b7647849a5aa5358e8cd, type: 3}
+--- !u!1 &429231176
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 429231178}
+  - component: {fileID: 429231177}
+  m_Layer: 0
+  m_Name: 'Scene: 4'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &429231177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 429231176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9771a337731eed04c85f9f492740936e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 'Scene: 4'
+  BackgroundIndex: 0
+  Background: 
+  Music: {fileID: 0}
+  Paths: []
+--- !u!4 &429231178
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 429231176}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1214865101}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &559625269
 GameObject:
   m_ObjectHideFlags: 0
@@ -1133,6 +1315,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Button
+--- !u!115 &696927204
+MonoScript:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  serializedVersion: 4
+  m_Script: 
+  m_DefaultReferences: {}
+  m_Icon: {fileID: 0}
+  m_ExecutionOrder: 0
+  m_ClassName: Character
+  m_Namespace: 
+  m_AssemblyName: Assembly-CSharp
+  m_IsEditorScript: 0
 --- !u!1 &971706635
 GameObject:
   m_ObjectHideFlags: 0
@@ -1269,7 +1466,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.41746256, y: -0.2769894, z: -0.028839603}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1632784127}
+  - {fileID: 150020653}
+  - {fileID: 429231178}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1285,56 +1485,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Scenes:
-  - Name: Intro Scene
-    BackgroundIndex: 0
-    Background: Bedroom
-    Music: {fileID: 0}
-    Paths:
-    - PathName: Intro Path
-      DialogueLines:
-      - Character: Nate
-        CharacterIndex: 0
-        DialogueLine: Hello
-        DialogueAudio: {fileID: 0}
-      - Character: Katie
-        CharacterIndex: 1
-        DialogueLine: This is the intro
-        DialogueAudio: {fileID: 0}
-      - Character: Sam
-        CharacterIndex: 2
-        DialogueLine: Would you like to continue in English or Spanish?
-        DialogueAudio: {fileID: 0}
-      QuestionLines:
-      - Response: English
-        LeadsToScene: 0
-        LeadsToPath: 1
-      - Response: Spanish
-        LeadsToScene: 0
-        LeadsToPath: 2
-    - PathName: English Path
-      DialogueLines:
-      - Character: Nate
-        CharacterIndex: 0
-        DialogueLine: This is the English Path
-        DialogueAudio: {fileID: 0}
-      QuestionLines: []
-    - PathName: Spanish Path
-      DialogueLines:
-      - Character: Nate
-        CharacterIndex: 0
-        DialogueLine: This is the Spanish Path
-        DialogueAudio: {fileID: 0}
-      QuestionLines: []
-  - Name: 
-    BackgroundIndex: 0
-    Background: 
-    Music: {fileID: 0}
-    Paths: []
-  - Name: 
-    BackgroundIndex: 0
-    Background: 
-    Music: {fileID: 0}
-    Paths: []
+  - {fileID: 1632784126}
+  - {fileID: 150020652}
+  - {fileID: 429231177}
 --- !u!1 &1407706384
 GameObject:
   m_ObjectHideFlags: 0
@@ -1518,12 +1671,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterList:
-  - CharacterName: Nate
-    CharacterSprite: {fileID: 21300000, guid: a91f9fa8549bd49498d3e2b38eccbfdc, type: 3}
-  - CharacterName: Katie
-    CharacterSprite: {fileID: 0}
-  - CharacterName: Sam
-    CharacterSprite: {fileID: 0}
+  - {fileID: 1629272622}
 --- !u!4 &1467710042
 Transform:
   m_ObjectHideFlags: 0
@@ -1531,9 +1679,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1467710040}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.8740894, y: -0.8265675, z: -0.017578125}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1629272624}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1598,6 +1747,139 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1629272621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1629272624}
+  - component: {fileID: 1629272622}
+  - component: {fileID: 1629272623}
+  m_Layer: 0
+  m_Name: Nate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1629272622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1629272621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 696927204}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterName: Nate
+--- !u!212 &1629272623
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1629272621}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: a91f9fa8549bd49498d3e2b38eccbfdc, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 19.2, y: 10.8}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+--- !u!4 &1629272624
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1629272621}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.925, y: 0.925, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1467710042}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1632784125
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1632784127}
+  - component: {fileID: 1632784126}
+  m_Layer: 0
+  m_Name: Testingabc
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1632784126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1632784125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9771a337731eed04c85f9f492740936e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Testingabc
+  BackgroundIndex: 0
+  Background: Bedroom
+  Music: {fileID: 0}
+  Paths:
+  - {fileID: 263742715}
+--- !u!4 &1632784127
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1632784125}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 263742716}
+  m_Father: {fileID: 1214865101}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1641819464
 GameObject:

@@ -9,7 +9,7 @@ public class Helper
         {
             for(int j = 0; j < conversation.Scenes[i].Paths.Count; j++)
             {
-                pathList.Add("Scene: " + (i + 1) + " Path: " + (j + 1));
+                pathList.Add(conversation.Scenes[i].Name + ", " + conversation.Scenes[i].Paths[j].PathName);
             }
         }
 

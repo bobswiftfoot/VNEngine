@@ -23,17 +23,21 @@ public class PlayState : BaseState
 
     public GameObject Dialogs;
     public GameObject Questions;
+    public GameObject FullScreenArt;
 
     enum States
     {
         EnterScene,
+        ChooseType,
         EnterCharacter,
+        ExitCharater,
+        WaitForCharacterMove,
         TextStart,
         TextScroll,
         WaitForInput,
+        ShowArt,
         StartQuestion,
         WaitForQuestionInput,
-        ExitCharater,
         EndDialogueLine,
         ExitScene,
     }
@@ -65,21 +69,59 @@ public class PlayState : BaseState
         switch (currentState)
         {
             case States.EnterScene:
+                Questions.SetActive(false);
+                Dialogs.SetActive(false);
+                FullScreenArt.SetActive(false);
+                Characters.Instance.HideCharacters();
                 //TODO: Transition in
                 //Set Current Background for scene
                 Backgrounds.Instance.SetCurrentBackground(Conversation.Instance.Scenes[currentScene].BackgroundIndex);
                 //TODO: Play Music
-                currentState = States.EnterCharacter;
+                currentState = States.ChooseType;
+                break;
+            case States.ChooseType:
+                switch (Conversation.Instance.Scenes[currentScene].Paths[currentPath].PathOptions[currentDialogueLine].Type)
+                {
+                    case PathOptions.PathOptionsType.CharacterMove:
+                        if (Conversation.Instance.Scenes[currentScene].Paths[currentPath].PathOptions[currentDialogueLine].Action == PathOptions.CharacterAction.Enter)
+                            currentState = States.EnterCharacter;
+                        else
+                            currentState = States.ExitCharater;
+                        break;
+                    case PathOptions.PathOptionsType.Dialogue:
+                        currentState = States.TextStart;
+                        break;
+                    case PathOptions.PathOptionsType.FullScreenArt:
+                        currentState = States.ShowArt;
+                        break;
+                }
                 break;
             case States.EnterCharacter:
-                //TODO: Slide character in if needed
-                currentState = States.TextStart;
+                {
+                    PathOptions currentOption = Conversation.Instance.Scenes[currentScene].Paths[currentPath].PathOptions[currentDialogueLine];
+                    currentOption.Character.gameObject.SetActive(true);
+                    StartCoroutine(MoveCharacter(currentOption.Character, currentOption.Action, currentOption.Direction, currentOption.Position));
+                    currentState = States.WaitForCharacterMove;
+                }
+                break;
+            case States.ExitCharater:
+                {
+                    PathOptions currentOption = Conversation.Instance.Scenes[currentScene].Paths[currentPath].PathOptions[currentDialogueLine];
+                    StartCoroutine(MoveCharacter(currentOption.Character, currentOption.Action, currentOption.Direction, currentOption.Position));
+                    currentState = States.WaitForCharacterMove;
+                }
+                break;
+            case States.WaitForCharacterMove:
+                //MoveCharacter will handle leaving this state
                 break;
             case States.TextStart:
                 Questions.SetActive(false);
                 Dialogs.SetActive(true);
-                nameText.text = Conversation.Instance.Scenes[currentScene].Paths[currentPath].DialogueLines[currentDialogueLine].Character;
-                StartCoroutine(ScrollText(Conversation.Instance.Scenes[currentScene].Paths[currentPath].DialogueLines[currentDialogueLine].DialogueLine));
+                if (Conversation.Instance.Scenes[currentScene].Paths[currentPath].PathOptions[currentDialogueLine].Type == PathOptions.PathOptionsType.Dialogue)
+                {
+                    nameText.text = Conversation.Instance.Scenes[currentScene].Paths[currentPath].PathOptions[currentDialogueLine].Character.CharacterName;
+                    StartCoroutine(ScrollText(Conversation.Instance.Scenes[currentScene].Paths[currentPath].PathOptions[currentDialogueLine].DialogueLine));
+                }
                 //TODO: Play voice clip
                 currentState = States.TextScroll;
                 break;
@@ -88,14 +130,25 @@ public class PlayState : BaseState
                 {
                     StopAllCoroutines();
                     //TODO: Stop Voice clip
-                    dialogueText.text = Conversation.Instance.Scenes[currentScene].Paths[currentPath].DialogueLines[currentDialogueLine].DialogueLine;
+                    if (Conversation.Instance.Scenes[currentScene].Paths[currentPath].PathOptions[currentDialogueLine].Type == PathOptions.PathOptionsType.Dialogue)
+                    {
+                        dialogueText.text = Conversation.Instance.Scenes[currentScene].Paths[currentPath].PathOptions[currentDialogueLine].DialogueLine;
+                    }
                     currentState = States.WaitForInput;
                 }
+                break;
+            case States.ShowArt:
+                Dialogs.SetActive(false);
+                Questions.SetActive(false);
+                FullScreenArt.SetActive(true);
+                FullScreenArt.GetComponent<SpriteRenderer>().sprite = Conversation.Instance.Scenes[currentScene].Paths[currentPath].PathOptions[currentDialogueLine].FullscreenArt;
+                currentState = States.WaitForInput;
                 break;
             case States.WaitForInput:
                 if (Input.GetMouseButtonUp(0) || Input.GetButtonUp("space"))
                 {
-                    if (currentDialogueLine == Conversation.Instance.Scenes[currentScene].Paths[currentPath].DialogueLines.Count - 1)
+                    FullScreenArt.SetActive(false);
+                    if (currentDialogueLine == Conversation.Instance.Scenes[currentScene].Paths[currentPath].PathOptions.Count - 1)
                     {
                         if(Conversation.Instance.Scenes[currentScene].Paths[currentPath].QuestionLines.Count > 0)
                         {
@@ -103,13 +156,12 @@ public class PlayState : BaseState
                         }
                         else
                         {
-                            currentState = States.ExitCharater;
+                            currentState = States.EndDialogueLine;
                         }
                     }
                     else
                     {
-                        currentDialogueLine++;
-                        currentState = States.TextStart;
+                        currentState = States.EndDialogueLine;
                     }
                 }
                 break;
@@ -134,20 +186,28 @@ public class PlayState : BaseState
                 currentState = States.WaitForQuestionInput;
                 break;
             case States.WaitForQuestionInput:
-                break;
-            case States.ExitCharater:
-                //TODO: Slide Character out if needed
-                currentState = States.EndDialogueLine;
+                //Responce on Click will handle moving to a new state
                 break;
             case States.EndDialogueLine:
-                if (currentDialogueLine == Conversation.Instance.Scenes[currentScene].Paths[currentPath].DialogueLines.Count - 1)
+                if (currentDialogueLine == Conversation.Instance.Scenes[currentScene].Paths[currentPath].PathOptions.Count - 1)
                 {
-                    //Game Over?
+                    if(currentPath == Conversation.Instance.Scenes[currentScene].Paths.Count - 1)
+                    {
+                        //Game Over?
+                        //Last path in scene, last dialogue line
+                    }
+                    else
+                    {
+                        //End of dialogue lines, continue onto next path.
+                        currentPath++;
+                        currentState = States.ChooseType;
+                    }
                 }
                 else
                 {
-                    currentPath++;
-                    currentState = States.EnterCharacter;
+                    //Continue onto next line
+                    currentDialogueLine++;
+                    currentState = States.ChooseType;
                 }
                 break;
             case States.ExitScene:
@@ -169,11 +229,11 @@ public class PlayState : BaseState
         if(nextScene == currentScene)
         {
             currentPath = nextPath;
-            currentState = States.EnterCharacter;
+            currentState = States.ChooseType;
         }
         else
         {
-            currentState = States.EnterScene;
+            currentState = States.ExitScene;
         }
     }
 
@@ -187,5 +247,74 @@ public class PlayState : BaseState
         }
 
         currentState = States.WaitForInput;
+    }
+
+    IEnumerator MoveCharacter(Character character, PathOptions.CharacterAction action, PathOptions.CharacterDirection direction, PathOptions.CharaterPosition position)
+    {
+        Vector2 targetPosition = new Vector2();
+        if(action == PathOptions.CharacterAction.Enter)
+        {
+            switch (position)
+            {
+                case PathOptions.CharaterPosition.FarLeft:
+                    targetPosition = character.FarLeftPosition;
+                    break;
+                case PathOptions.CharaterPosition.Left:
+                    targetPosition = character.LeftPosition;
+                    break;
+                case PathOptions.CharaterPosition.Right:
+                    targetPosition = character.RightPosition;
+                    break;
+                case PathOptions.CharaterPosition.FarRight:
+                    targetPosition = character.FarRightPosition;
+                    break;
+            }
+
+            switch (direction)
+            {
+                case PathOptions.CharacterDirection.Left:
+                    character.transform.position = new Vector2(-12, targetPosition.y);
+                    break;
+                case PathOptions.CharacterDirection.Right:
+                    character.transform.position = new Vector2(12, targetPosition.y);
+                    break;
+                case PathOptions.CharacterDirection.Top:
+                    character.transform.position = new Vector2(targetPosition.x, 12);
+                    break;
+                case PathOptions.CharacterDirection.Bottom:
+                    character.transform.position = new Vector2(targetPosition.x, -12);
+                    break;
+            }
+        }
+        else
+        {
+            targetPosition = character.gameObject.transform.position;
+
+            switch (direction)
+            {
+                case PathOptions.CharacterDirection.Left:
+                    targetPosition = new Vector2(-12, targetPosition.y);
+                    break;
+                case PathOptions.CharacterDirection.Right:
+                    targetPosition = new Vector2(10, targetPosition.y);
+                    break;
+                case PathOptions.CharacterDirection.Top:
+                    targetPosition = new Vector2(targetPosition.x, 10);
+                    break;
+                case PathOptions.CharacterDirection.Bottom:
+                    targetPosition = new Vector2(targetPosition.x, -10);
+                    break;
+            }
+        }
+
+        while(character.transform.position.x != targetPosition.x || character.transform.position.y != targetPosition.y)
+        {
+            float speed = 5.0f;
+            float step = speed * Time.deltaTime;
+            character.transform.position = Vector2.MoveTowards(character.transform.position, targetPosition, step);
+            yield return null;
+        }
+        currentState = States.EndDialogueLine;
+        yield return null;
     }
 }

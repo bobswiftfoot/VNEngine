@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class Scene
+[ExecuteInEditMode]
+public class Scene : MonoBehaviour
 {
     public string Name;
     public int BackgroundIndex;
@@ -20,5 +21,13 @@ public class Scene
         Background = "";
         Music = null;
         Paths = new List<Path>();
+    }
+
+    private void OnDestroy()
+    {
+        if (gameObject.GetComponentInParent<Conversation>())
+        {
+            (gameObject.GetComponentInParent<Conversation>()).Scenes.Remove(this);
+        }
     }
 }

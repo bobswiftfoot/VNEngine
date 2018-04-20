@@ -15,15 +15,6 @@ public class Characters : MonoBehaviour
         }
     }
 
-    [Serializable]
-    public class Character
-    {
-        [SerializeField]
-        public String CharacterName;
-        [SerializeField]
-        public Sprite CharacterSprite;
-    }
-
     public List<Character> CharacterList;
 
     public List<String> GetNames()
@@ -37,6 +28,14 @@ public class Characters : MonoBehaviour
         return Names;
     }
 
+    public void HideCharacters()
+    {
+        foreach(Character character in CharacterList)
+        {
+            character.gameObject.SetActive(false);
+        }
+    }
+
     private void Awake()
     {
         if (_characters != null && _characters != this)
@@ -44,5 +43,22 @@ public class Characters : MonoBehaviour
         else
             _characters = this;
     }
+}
 
+[ExecuteInEditMode]
+public class Character : MonoBehaviour
+{
+    public String CharacterName;
+    public Vector2 FarLeftPosition;
+    public Vector2 LeftPosition;
+    public Vector2 RightPosition;
+    public Vector2 FarRightPosition;
+
+    private void OnDestroy()
+    {
+        if (gameObject.GetComponentInParent<Characters>())
+        {
+            (gameObject.GetComponentInParent<Characters>()).CharacterList.Remove(this);
+        }
+    }
 }
