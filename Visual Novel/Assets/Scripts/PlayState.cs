@@ -309,10 +309,17 @@ public class PlayState : BaseState
 
         while(character.transform.position.x != targetPosition.x || character.transform.position.y != targetPosition.y)
         {
-            float speed = 5.0f;
-            float step = speed * Time.deltaTime;
-            character.transform.position = Vector2.MoveTowards(character.transform.position, targetPosition, step);
-            yield return null;
+            if (Input.GetMouseButtonUp(0) || Input.GetButtonUp("space"))
+            {
+                character.transform.position = targetPosition;
+            }
+            else
+            {
+                float speed = 5.0f;
+                float step = speed * Time.deltaTime;
+                character.transform.position = Vector2.MoveTowards(character.transform.position, targetPosition, step);
+                yield return null;
+            }
         }
         currentState = States.EndDialogueLine;
         yield return null;
