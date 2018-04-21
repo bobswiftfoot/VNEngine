@@ -27,67 +27,6 @@ public class Path : MonoBehaviour
 }
 
 [Serializable]
-public class PathOptions
-{
-    public enum PathOptionsType
-    {
-        Dialogue,
-        CharacterMove,
-        FullScreenArt
-    } 
-
-    public enum CharacterAction
-    {
-        Enter,
-        Exit,
-    }
-
-    public enum CharacterDirection
-    {
-        Left,
-        Right,
-        Top,
-        Bottom
-    }
-
-    public enum CharaterPosition
-    {
-        FarLeft,
-        Left,
-        Right,
-        FarRight
-    }
-
-    public enum CharacterOrientation
-    {
-        Normal,
-        Flipped
-    }
-
-    //Dialogue 
-    public PathOptionsType Type;
-    public Character Character;
-    public int CharacterIndex;
-    public string DialogueLine;
-    [SerializeField]
-    public AudioClip DialogueAudio;
-
-    //Character Move
-    public CharacterAction Action;
-    public CharacterDirection Direction;
-    public CharaterPosition Position;
-    public CharacterOrientation Orientation;
-
-    //Art
-    public Sprite FullscreenArt;
-
-    public PathOptions(PathOptionsType type)
-    {
-        Type = type;
-    }
-}
-
-[Serializable]
 public class Questions
 {
     public string Response;

@@ -29,8 +29,7 @@ public class PlayState : BaseState
     {
         EnterScene,
         ChooseType,
-        EnterCharacter,
-        ExitCharater,
+        MoveCharacter,
         WaitForCharacterMove,
         TextStart,
         TextScroll,
@@ -83,10 +82,7 @@ public class PlayState : BaseState
                 switch (Conversation.Instance.Scenes[currentScene].Paths[currentPath].PathOptions[currentDialogueLine].Type)
                 {
                     case PathOptions.PathOptionsType.CharacterMove:
-                        if (Conversation.Instance.Scenes[currentScene].Paths[currentPath].PathOptions[currentDialogueLine].Action == PathOptions.CharacterAction.Enter)
-                            currentState = States.EnterCharacter;
-                        else
-                            currentState = States.ExitCharater;
+                        currentState = States.MoveCharacter;
                         break;
                     case PathOptions.PathOptionsType.Dialogue:
                         currentState = States.TextStart;
@@ -96,18 +92,14 @@ public class PlayState : BaseState
                         break;
                 }
                 break;
-            case States.EnterCharacter:
+            case States.MoveCharacter:
                 {
                     PathOptions currentOption = Conversation.Instance.Scenes[currentScene].Paths[currentPath].PathOptions[currentDialogueLine];
-                    currentOption.Character.gameObject.SetActive(true);
-                    StartCoroutine(MoveCharacter(currentOption.Character, currentOption.Action, currentOption.Direction, currentOption.Position));
-                    currentState = States.WaitForCharacterMove;
-                }
-                break;
-            case States.ExitCharater:
-                {
-                    PathOptions currentOption = Conversation.Instance.Scenes[currentScene].Paths[currentPath].PathOptions[currentDialogueLine];
-                    StartCoroutine(MoveCharacter(currentOption.Character, currentOption.Action, currentOption.Direction, currentOption.Position));
+                    foreach (PathOptions.CharacterMovement movement in currentOption.MultipleCharacters)
+                    {
+                        movement.Character.gameObject.SetActive(true);
+                        StartCoroutine(MoveCharacter(movement.Character, movement.Action, movement.Direction, movement.Position));
+                    }
                     currentState = States.WaitForCharacterMove;
                 }
                 break;
