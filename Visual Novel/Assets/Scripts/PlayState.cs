@@ -25,6 +25,8 @@ public class PlayState : BaseState
     public GameObject Questions;
     public GameObject FullScreenArt;
 
+    public static int MoveCharacterIndex = 0;
+
     enum States
     {
         EnterScene,
@@ -243,6 +245,8 @@ public class PlayState : BaseState
 
     IEnumerator MoveCharacter(Character character, PathOptions.CharacterAction action, PathOptions.CharacterDirection direction, PathOptions.CharaterPosition position)
     {
+        MoveCharacterIndex++;
+
         Vector2 targetPosition = new Vector2();
         if(action == PathOptions.CharacterAction.Enter)
         {
@@ -313,7 +317,10 @@ public class PlayState : BaseState
                 yield return null;
             }
         }
-        currentState = States.EndDialogueLine;
+
+        MoveCharacterIndex--;
+        if(MoveCharacterIndex == 0)
+            currentState = States.EndDialogueLine;
         yield return null;
     }
 }
