@@ -17,6 +17,7 @@ public class PathOptions : MonoBehaviour
     {
         Enter,
         Exit,
+        Start,
     }
 
     public enum CharacterDirection
@@ -31,6 +32,7 @@ public class PathOptions : MonoBehaviour
     {
         FarLeft,
         Left,
+        Center,
         Right,
         FarRight
     }
@@ -39,6 +41,12 @@ public class PathOptions : MonoBehaviour
     {
         Normal,
         Flipped
+    }
+
+    public enum CharacterMultipleMovementType
+    {
+        AllAtOnce,
+        OneAtATime,
     }
 
     //Dialogue 
@@ -62,6 +70,7 @@ public class PathOptions : MonoBehaviour
         public int CharacterIndex;
     } 
     public List<CharacterMovement> MultipleCharacters;
+    public CharacterMultipleMovementType MultipleMovementType;
 
     //Art
     public Sprite FullscreenArt;

@@ -227,7 +227,8 @@ MonoBehaviour:
   BackgroundIndex: 0
   Background: Bedroom
   Music: {fileID: 0}
-  Paths: []
+  Paths:
+  - {fileID: 173717562}
 --- !u!4 &150020653
 Transform:
   m_ObjectHideFlags: 0
@@ -237,9 +238,57 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 173717563}
   m_Father: {fileID: 1214865101}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &173717561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 173717563}
+  - component: {fileID: 173717562}
+  m_Layer: 0
+  m_Name: Nate Start
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &173717562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 173717561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4588f890c3e2a40428eaa48aef875fdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PathName: Nate Start
+  PathOptions:
+  - {fileID: 1227442488}
+  - {fileID: 1636854647}
+  QuestionLines: []
+--- !u!4 &173717563
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 173717561}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1227442487}
+  - {fileID: 1636854648}
+  m_Father: {fileID: 150020653}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &237506481
 GameObject:
@@ -476,20 +525,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PathName: PathNameTest
   PathOptions:
-  - {fileID: 479567447}
+  - {fileID: 1711132077}
   - {fileID: 729762480}
   - {fileID: 586876799}
-  - {fileID: 1711132077}
   - {fileID: 1214796803}
+  - {fileID: 479567447}
   - {fileID: 1774258224}
   QuestionLines:
-  - Response: 
+  - Response: 1
+    LeadsToScene: 1
+    LeadsToPath: 0
+  - Response: 2
     LeadsToScene: 0
     LeadsToPath: 0
-  - Response: 
-    LeadsToScene: 0
-    LeadsToPath: 0
-  - Response: 
+  - Response: 3
     LeadsToScene: 0
     LeadsToPath: 0
 --- !u!4 &263742716
@@ -502,11 +551,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 479567446}
+  - {fileID: 1711132076}
   - {fileID: 729762479}
   - {fileID: 586876800}
-  - {fileID: 1711132076}
   - {fileID: 1214796804}
+  - {fileID: 479567446}
   - {fileID: 1774258225}
   m_Father: {fileID: 1632784127}
   m_RootOrder: 0
@@ -993,6 +1042,7 @@ MonoBehaviour:
   CharacterName: Sam
   FarLeftPosition: {x: -6.53, y: -1.02}
   LeftPosition: {x: -3.2, y: -0.26}
+  CenterPosition: {x: 0, y: 0}
   RightPosition: {x: 2.05, y: 0.1}
   FarRightPosition: {x: 5.98, y: -1.09}
 --- !u!212 &370935587
@@ -1046,7 +1096,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 370935585}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.2, y: -0.26, z: 0}
+  m_LocalPosition: {x: -3.2, y: -0.26, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1467710042}
@@ -1125,7 +1175,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 263742716}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &479567447
 MonoBehaviour:
@@ -1146,6 +1196,7 @@ MonoBehaviour:
     a
   DialogueAudio: {fileID: 0}
   MultipleCharacters: []
+  MultipleMovementType: 0
   FullscreenArt: {fileID: 0}
 --- !u!1 &559625269
 GameObject:
@@ -1292,6 +1343,7 @@ MonoBehaviour:
   DialogueLine: '...'
   DialogueAudio: {fileID: 0}
   MultipleCharacters: []
+  MultipleMovementType: 0
   FullscreenArt: {fileID: 0}
 --- !u!4 &586876800
 Transform:
@@ -1522,6 +1574,7 @@ MonoBehaviour:
   CharacterName: Nate
   FarLeftPosition: {x: -4.92, y: -0.76}
   LeftPosition: {x: -1.62, y: 0.24}
+  CenterPosition: {x: 0, y: 0}
   RightPosition: {x: 2.54, y: 0.21}
   FarRightPosition: {x: 5.95, y: -1.1}
 --- !u!212 &694528799
@@ -1575,7 +1628,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 694528797}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.95, y: -1.1, z: 0}
+  m_LocalPosition: {x: 5.95, y: -1.1, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1467710042}
@@ -1628,6 +1681,7 @@ MonoBehaviour:
   DialogueLine: A much shorter Line
   DialogueAudio: {fileID: 0}
   MultipleCharacters: []
+  MultipleMovementType: 0
   FullscreenArt: {fileID: 0}
 --- !u!1 &833108968
 GameObject:
@@ -1660,7 +1714,8 @@ MonoBehaviour:
   CharacterName: Zack
   FarLeftPosition: {x: -6.5, y: -1.02}
   LeftPosition: {x: -3.13, y: -0.2}
-  RightPosition: {x: 1.16, y: -0.33}
+  CenterPosition: {x: 0, y: 0}
+  RightPosition: {x: 1.55, y: -0.1}
   FarRightPosition: {x: 5.91, y: -1.19}
 --- !u!212 &833108970
 SpriteRenderer:
@@ -1713,7 +1768,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 833108968}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.16, y: -0.33, z: 0}
+  m_LocalPosition: {x: 1.55, y: -0.1, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1467710042}
@@ -1864,6 +1919,7 @@ MonoBehaviour:
   DialogueLine: Talking again
   DialogueAudio: {fileID: 0}
   MultipleCharacters: []
+  MultipleMovementType: 0
   FullscreenArt: {fileID: 0}
 --- !u!4 &1214796804
 Transform:
@@ -1876,7 +1932,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 263742716}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1214865100
 GameObject:
@@ -1925,6 +1981,61 @@ MonoBehaviour:
   - {fileID: 1632784126}
   - {fileID: 150020652}
   - {fileID: 429231177}
+--- !u!1 &1227442486
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1227442487}
+  - component: {fileID: 1227442488}
+  m_Layer: 0
+  m_Name: Nate Starts
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1227442487
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1227442486}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 173717563}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1227442488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1227442486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bca12d3e482cce0428db5e096ed1cc60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 1
+  Character: {fileID: 694528798}
+  CustomCharacterName: 
+  CharacterIndex: 0
+  DialogueLine: 
+  DialogueAudio: {fileID: 0}
+  MultipleCharacters:
+  - Action: 2
+    Direction: 0
+    Position: 2
+    Orientation: 0
+    Character: {fileID: 694528798}
+    CharacterIndex: 0
+  MultipleMovementType: 0
+  FullscreenArt: {fileID: 0}
 --- !u!1 &1377448334
 GameObject:
   m_ObjectHideFlags: 0
@@ -1956,6 +2067,7 @@ MonoBehaviour:
   CharacterName: Katie
   FarLeftPosition: {x: -6.47, y: -1.09}
   LeftPosition: {x: -2.31, y: 0.03}
+  CenterPosition: {x: 0, y: 0}
   RightPosition: {x: 2.34, y: -0.53}
   FarRightPosition: {x: 5.77, y: -1.06}
 --- !u!212 &1377448336
@@ -2009,7 +2121,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1377448334}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.47, y: -1.09, z: 0}
+  m_LocalPosition: {x: -6.47, y: -1.09, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1467710042}
@@ -2328,6 +2440,55 @@ Transform:
   m_Father: {fileID: 1214865101}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1636854646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1636854648}
+  - component: {fileID: 1636854647}
+  m_Layer: 0
+  m_Name: 'Nate: Hello'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1636854647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1636854646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bca12d3e482cce0428db5e096ed1cc60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 0
+  Character: {fileID: 694528798}
+  CustomCharacterName: 
+  CharacterIndex: 0
+  DialogueLine: Hello
+  DialogueAudio: {fileID: 0}
+  MultipleCharacters: []
+  MultipleMovementType: 0
+  FullscreenArt: {fileID: 0}
+--- !u!4 &1636854648
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1636854646}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 173717563}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1641819464
 GameObject:
   m_ObjectHideFlags: 0
@@ -2578,7 +2739,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 263742716}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1711132077
 MonoBehaviour:
@@ -2622,6 +2783,7 @@ MonoBehaviour:
     Orientation: 0
     Character: {fileID: 694528798}
     CharacterIndex: 0
+  MultipleMovementType: 1
   FullscreenArt: {fileID: 0}
 --- !u!1 &1774258223
 GameObject:
@@ -2657,6 +2819,7 @@ MonoBehaviour:
   DialogueLine: 
   DialogueAudio: {fileID: 0}
   MultipleCharacters: []
+  MultipleMovementType: 0
   FullscreenArt: {fileID: 21300000, guid: c16db130834d11d42ac3e49f653eeafe, type: 3}
 --- !u!4 &1774258225
 Transform:

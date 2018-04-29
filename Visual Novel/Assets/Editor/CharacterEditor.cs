@@ -39,6 +39,18 @@ public class CharacterEditor : Editor
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal();
+        myCharacter.CenterPosition = EditorGUILayout.Vector2Field("Center Position: ", myCharacter.CenterPosition, GUILayout.MaxWidth(275));
+        if (GUILayout.Button("Show Position", GUILayout.Width(100)))
+        {
+            myCharacter.gameObject.transform.position = new Vector3(myCharacter.CenterPosition.x, myCharacter.CenterPosition.y);
+        }
+        if (GUILayout.Button("Use Current Position", GUILayout.Width(150)))
+        {
+            myCharacter.CenterPosition = new Vector2(myCharacter.gameObject.transform.position.x, myCharacter.gameObject.transform.position.y);
+        }
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
         myCharacter.RightPosition = EditorGUILayout.Vector2Field("Right Position: ", myCharacter.RightPosition, GUILayout.MaxWidth(275));
         if (GUILayout.Button("Show Position", GUILayout.Width(100)))
         {

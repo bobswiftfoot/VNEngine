@@ -51,6 +51,7 @@ public class Character : MonoBehaviour
     public String CharacterName;
     public Vector2 FarLeftPosition;
     public Vector2 LeftPosition;
+    public Vector2 CenterPosition;
     public Vector2 RightPosition;
     public Vector2 FarRightPosition;
 

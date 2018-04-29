@@ -21,6 +21,7 @@ public class SceneEditor : Editor
         {
             GUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Path " + (p + 1) + ": " + myScene.Paths[p].PathName);
+
             if (GUILayout.Button("Delete Path"))
             {
                 foreach (Path path in myScene.gameObject.GetComponentsInChildren<Path>())

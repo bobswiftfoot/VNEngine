@@ -26,6 +26,7 @@ public class PlayState : BaseState
     public GameObject FullScreenArt;
 
     public static int MoveCharacterIndex = 0;
+    public static bool CharacterMoving = false;
 
     enum States
     {
@@ -97,10 +98,17 @@ public class PlayState : BaseState
             case States.MoveCharacter:
                 {
                     PathOptions currentOption = Conversation.Instance.Scenes[currentScene].Paths[currentPath].PathOptions[currentDialogueLine];
-                    foreach (PathOptions.CharacterMovement movement in currentOption.MultipleCharacters)
+                    if (currentOption.MultipleCharacters.Count == 1 || currentOption.MultipleMovementType == PathOptions.CharacterMultipleMovementType.AllAtOnce)
                     {
-                        movement.Character.gameObject.SetActive(true);
-                        StartCoroutine(MoveCharacter(movement.Character, movement.Action, movement.Direction, movement.Position));
+                        foreach (PathOptions.CharacterMovement movement in currentOption.MultipleCharacters)
+                        {
+                            movement.Character.gameObject.SetActive(true);
+                            StartCoroutine(MoveCharacter(movement.Character, movement.Action, movement.Direction, movement.Position, true));
+                        }
+                    }
+                    else
+                    {
+                        StartCoroutine(MoveCharactersOneAtATime(currentOption.MultipleCharacters));
                     }
                     currentState = States.WaitForCharacterMove;
                 }
@@ -144,7 +152,7 @@ public class PlayState : BaseState
                     FullScreenArt.SetActive(false);
                     if (currentDialogueLine == Conversation.Instance.Scenes[currentScene].Paths[currentPath].PathOptions.Count - 1)
                     {
-                        if(Conversation.Instance.Scenes[currentScene].Paths[currentPath].QuestionLines.Count > 0)
+                        if (Conversation.Instance.Scenes[currentScene].Paths[currentPath].QuestionLines.Count > 0)
                         {
                             currentState = States.StartQuestion;
                         }
@@ -162,9 +170,9 @@ public class PlayState : BaseState
             case States.StartQuestion:
                 Questions.SetActive(true);
                 Dialogs.SetActive(false);
-                for(int i = 0; i < questionObjects.Count; i++)
+                for (int i = 0; i < questionObjects.Count; i++)
                 {
-                    if(i < Conversation.Instance.Scenes[currentScene].Paths[currentPath].QuestionLines.Count)
+                    if (i < Conversation.Instance.Scenes[currentScene].Paths[currentPath].QuestionLines.Count)
                     {
                         questionObjects[i].gameObject.SetActive(true);
                         questionObjects[i].onClick.RemoveAllListeners();
@@ -185,7 +193,7 @@ public class PlayState : BaseState
             case States.EndDialogueLine:
                 if (currentDialogueLine == Conversation.Instance.Scenes[currentScene].Paths[currentPath].PathOptions.Count - 1)
                 {
-                    if(currentPath == Conversation.Instance.Scenes[currentScene].Paths.Count - 1)
+                    if (currentPath == Conversation.Instance.Scenes[currentScene].Paths.Count - 1)
                     {
                         //Game Over?
                         //Last path in scene, last dialogue line
@@ -210,6 +218,7 @@ public class PlayState : BaseState
                 //TODO: End Music
                 currentScene = nextScene;
                 currentPath = nextPath;
+                currentDialogueLine = 0;
                 currentState = States.EnterScene;
                 break;
         }
@@ -220,7 +229,7 @@ public class PlayState : BaseState
         nextScene = Conversation.Instance.Scenes[currentScene].Paths[currentPath].QuestionLines[buttonID].LeadsToScene;
         nextPath = Conversation.Instance.Scenes[currentScene].Paths[currentPath].QuestionLines[buttonID].LeadsToPath;
 
-        if(nextScene == currentScene)
+        if (nextScene == currentScene)
         {
             currentPath = nextPath;
             currentState = States.ChooseType;
@@ -243,67 +252,117 @@ public class PlayState : BaseState
         currentState = States.WaitForInput;
     }
 
-    IEnumerator MoveCharacter(Character character, PathOptions.CharacterAction action, PathOptions.CharacterDirection direction, PathOptions.CharaterPosition position)
+    IEnumerator MoveCharactersOneAtATime(List<PathOptions.CharacterMovement> characterMovements)
+    {
+        foreach (PathOptions.CharacterMovement movement in characterMovements)
+        {
+            while (CharacterMoving)
+            {
+                yield return null;
+            }
+            CharacterMoving = true;
+            movement.Character.gameObject.SetActive(true);
+            StartCoroutine(MoveCharacter(movement.Character, movement.Action, movement.Direction, movement.Position, false));
+        }
+
+        yield return null;
+    }  
+
+    IEnumerator MoveCharacter(Character character, PathOptions.CharacterAction action, PathOptions.CharacterDirection direction, PathOptions.CharaterPosition position, bool AllAtOnce)
     {
         MoveCharacterIndex++;
 
-        Vector2 targetPosition = new Vector2();
-        if(action == PathOptions.CharacterAction.Enter)
+        Vector3 targetPosition = new Vector3();
+        switch (action)
         {
-            switch (position)
-            {
-                case PathOptions.CharaterPosition.FarLeft:
-                    targetPosition = character.FarLeftPosition;
-                    break;
-                case PathOptions.CharaterPosition.Left:
-                    targetPosition = character.LeftPosition;
-                    break;
-                case PathOptions.CharaterPosition.Right:
-                    targetPosition = character.RightPosition;
-                    break;
-                case PathOptions.CharaterPosition.FarRight:
-                    targetPosition = character.FarRightPosition;
-                    break;
-            }
+            case PathOptions.CharacterAction.Enter:
+                {
+                    switch (position)
+                    {
+                        case PathOptions.CharaterPosition.FarLeft:
+                            targetPosition = character.FarLeftPosition;
+                            break;
+                        case PathOptions.CharaterPosition.Left:
+                            targetPosition = character.LeftPosition;
+                            break;
+                        case PathOptions.CharaterPosition.Center:
+                            targetPosition = character.CenterPosition;
+                            break;
+                        case PathOptions.CharaterPosition.Right:
+                            targetPosition = character.RightPosition;
+                            break;
+                        case PathOptions.CharaterPosition.FarRight:
+                            targetPosition = character.FarRightPosition;
+                            break;
+                    }
 
-            switch (direction)
-            {
-                case PathOptions.CharacterDirection.Left:
-                    character.transform.position = new Vector2(-12, targetPosition.y);
-                    break;
-                case PathOptions.CharacterDirection.Right:
-                    character.transform.position = new Vector2(12, targetPosition.y);
-                    break;
-                case PathOptions.CharacterDirection.Top:
-                    character.transform.position = new Vector2(targetPosition.x, 12);
-                    break;
-                case PathOptions.CharacterDirection.Bottom:
-                    character.transform.position = new Vector2(targetPosition.x, -12);
-                    break;
-            }
+                    switch (direction)
+                    {
+                        case PathOptions.CharacterDirection.Left:
+                            character.transform.position = new Vector2(-12, targetPosition.y);
+                            break;
+                        case PathOptions.CharacterDirection.Right:
+                            character.transform.position = new Vector2(12, targetPosition.y);
+                            break;
+                        case PathOptions.CharacterDirection.Top:
+                            character.transform.position = new Vector2(targetPosition.x, 12);
+                            break;
+                        case PathOptions.CharacterDirection.Bottom:
+                            character.transform.position = new Vector2(targetPosition.x, -12);
+                            break;
+                    }
+                }
+                break;
+            case PathOptions.CharacterAction.Exit:
+                {
+                    targetPosition = character.gameObject.transform.position;
+
+                    switch (direction)
+                    {
+                        case PathOptions.CharacterDirection.Left:
+                            targetPosition = new Vector2(-12, targetPosition.y);
+                            break;
+                        case PathOptions.CharacterDirection.Right:
+                            targetPosition = new Vector2(10, targetPosition.y);
+                            break;
+                        case PathOptions.CharacterDirection.Top:
+                            targetPosition = new Vector2(targetPosition.x, 10);
+                            break;
+                        case PathOptions.CharacterDirection.Bottom:
+                            targetPosition = new Vector2(targetPosition.x, -10);
+                            break;
+                    }
+                }
+                break;
+            case PathOptions.CharacterAction.Start:
+                {
+                    switch (position)
+                    {
+                        case PathOptions.CharaterPosition.FarLeft:
+                            targetPosition = character.FarLeftPosition;
+                            break;
+                        case PathOptions.CharaterPosition.Left:
+                            targetPosition = character.LeftPosition;
+                            break;
+                        case PathOptions.CharaterPosition.Center:
+                            targetPosition = character.CenterPosition;
+                            break;
+                        case PathOptions.CharaterPosition.Right:
+                            targetPosition = character.RightPosition;
+                            break;
+                        case PathOptions.CharaterPosition.FarRight:
+                            targetPosition = character.FarRightPosition;
+                            break;
+                    }
+
+                    character.transform.position = new Vector2(targetPosition.x, targetPosition.y);
+                }
+                break;
         }
-        else
-        {
-            targetPosition = character.gameObject.transform.position;
+        //Make sure all characters are in front
+        targetPosition.z = -1;
 
-            switch (direction)
-            {
-                case PathOptions.CharacterDirection.Left:
-                    targetPosition = new Vector2(-12, targetPosition.y);
-                    break;
-                case PathOptions.CharacterDirection.Right:
-                    targetPosition = new Vector2(10, targetPosition.y);
-                    break;
-                case PathOptions.CharacterDirection.Top:
-                    targetPosition = new Vector2(targetPosition.x, 10);
-                    break;
-                case PathOptions.CharacterDirection.Bottom:
-                    targetPosition = new Vector2(targetPosition.x, -10);
-                    break;
-            }
-        }
-
-        while(character.transform.position.x != targetPosition.x || character.transform.position.y != targetPosition.y)
+        while (character.transform.position.x != targetPosition.x || character.transform.position.y != targetPosition.y)
         {
             if (Input.GetMouseButtonUp(0) || Input.GetButtonUp("space"))
             {
@@ -313,14 +372,28 @@ public class PlayState : BaseState
             {
                 float speed = 5.0f;
                 float step = speed * Time.deltaTime;
-                character.transform.position = Vector2.MoveTowards(character.transform.position, targetPosition, step);
+                character.transform.position = Vector3.MoveTowards(character.transform.position, targetPosition, step);
                 yield return null;
             }
         }
 
         MoveCharacterIndex--;
-        if(MoveCharacterIndex == 0)
-            currentState = States.EndDialogueLine;
+        if (MoveCharacterIndex == 0)
+        {
+            if (AllAtOnce)
+            {
+                while (currentState != States.WaitForCharacterMove)
+                {
+                    //Sometimes a start move will reach this before its in the correct state
+                    yield return null;
+                }
+                currentState = States.EndDialogueLine;
+            }
+            else
+            {
+                CharacterMoving = false;
+            }
+        }
         yield return null;
     }
 }

@@ -24,12 +24,27 @@ public class PathEditor : Editor
 
             EditorStyles.label.wordWrap = true;
             string name = myPath.PathOptions[d].gameObject.name;
-            float width = EditorGUIUtility.currentViewWidth - 115;
+            float width = EditorGUIUtility.currentViewWidth - 200;
             float height = EditorStyles.label.CalcHeight(new GUIContent(name), width);
             EditorGUILayout.LabelField(name, GUILayout.Width(width), GUILayout.Height(height));
             EditorStyles.label.wordWrap = false;
-
-            if (GUILayout.Button("Delete", GUILayout.Width(80)))
+            if (d > 0 && GUILayout.Button("Up", GUILayout.Width(30)))
+            {
+                PathOptions path = myPath.PathOptions[d];
+                myPath.PathOptions.RemoveAt(d);
+                myPath.PathOptions.Insert(d - 1, path);
+                path.transform.SetSiblingIndex(d - 1);
+                break;
+            }
+            if (d < myPath.PathOptions.Count - 1 && GUILayout.Button("Down", GUILayout.Width(50)))
+            {
+                PathOptions path = myPath.PathOptions[d];
+                myPath.PathOptions.RemoveAt(d);
+                myPath.PathOptions.Insert(d + 1, path);
+                path.transform.SetSiblingIndex(d + 1);
+                break;
+            }
+            if (GUILayout.Button("Delete", GUILayout.Width(65)))
             {
                 foreach (PathOptions pathoption in myPath.gameObject.GetComponentsInChildren<PathOptions>())
                 {

@@ -63,6 +63,8 @@ public class PathOptionsEditor : Editor
                     myPathOption.CharacterIndex = EditorGUILayout.Popup(myPathOption.CharacterIndex, Names.ToArray(), GUILayout.Width(100));
                     if (myPathOption.CharacterIndex == Characters.Instance.CharacterList.Count)
                     {
+                        myPathOption.MultipleMovementType = (PathOptions.CharacterMultipleMovementType)EditorGUILayout.Popup((int)myPathOption.MultipleMovementType, Enum.GetNames(typeof(PathOptions.CharacterMultipleMovementType)), GUILayout.Width(100));
+
                         GUILayout.EndHorizontal();
 
                         myPathOption.gameObject.name = "Multiple characters moving";
@@ -78,21 +80,29 @@ public class PathOptionsEditor : Editor
                             myPathOption.MultipleCharacters[i].Action = (PathOptions.CharacterAction)EditorGUILayout.Popup((int)myPathOption.MultipleCharacters[i].Action, Enum.GetNames(typeof(PathOptions.CharacterAction)), GUILayout.Width(70));
 
                             string label = "";
-                            if (myPathOption.MultipleCharacters[i].Action == PathOptions.CharacterAction.Enter)
+                            if (myPathOption.MultipleCharacters[0].Action == PathOptions.CharacterAction.Enter)
                             {
                                 EditorGUIUtility.labelWidth = 40;
                                 label = "from";
+                                myPathOption.MultipleCharacters[0].Direction = (PathOptions.CharacterDirection)EditorGUILayout.Popup(label, (int)myPathOption.MultipleCharacters[0].Direction, Enum.GetNames(typeof(PathOptions.CharacterDirection)), GUILayout.Width(100));
                             }
-                            else
+                            else if (myPathOption.MultipleCharacters[0].Action == PathOptions.CharacterAction.Exit)
                             {
                                 EditorGUIUtility.labelWidth = 20;
                                 label = "to";
+                                myPathOption.MultipleCharacters[0].Direction = (PathOptions.CharacterDirection)EditorGUILayout.Popup(label, (int)myPathOption.MultipleCharacters[0].Direction, Enum.GetNames(typeof(PathOptions.CharacterDirection)), GUILayout.Width(100));
                             }
-                            myPathOption.MultipleCharacters[i].Direction = (PathOptions.CharacterDirection)EditorGUILayout.Popup(label, (int)myPathOption.MultipleCharacters[i].Direction, Enum.GetNames(typeof(PathOptions.CharacterDirection)), GUILayout.Width(100));
+                            else if (myPathOption.MultipleCharacters[0].Action == PathOptions.CharacterAction.Start)
+                            {
+                                EditorGUIUtility.labelWidth = 20;
+                                label = "at";
+                                myPathOption.MultipleCharacters[0].Position = (PathOptions.CharaterPosition)EditorGUILayout.Popup(label, (int)myPathOption.MultipleCharacters[0].Position, Enum.GetNames(typeof(PathOptions.CharaterPosition)), GUILayout.Width(100));
+                            }
 
-                            if (GUILayout.Button("Delete Character", GUILayout.MinWidth(125)))
+                            if (GUILayout.Button("Delete Movement", GUILayout.MinWidth(125)))
                             {
                                 myPathOption.MultipleCharacters.Remove(myPathOption.MultipleCharacters[i]);
+                                GUILayout.EndHorizontal();
                                 break;
                             }
 
@@ -111,7 +121,7 @@ public class PathOptionsEditor : Editor
                                 GUILayout.EndHorizontal();
                             }
                         }
-                        if (GUILayout.Button("Add Character"))
+                        if (GUILayout.Button("Add Movement"))
                         {
                             myPathOption.MultipleCharacters.Add(new PathOptions.CharacterMovement());
                         }
@@ -129,13 +139,20 @@ public class PathOptionsEditor : Editor
                         {
                             EditorGUIUtility.labelWidth = 40;
                             label = "from";
+                            myPathOption.MultipleCharacters[0].Direction = (PathOptions.CharacterDirection)EditorGUILayout.Popup(label, (int)myPathOption.MultipleCharacters[0].Direction, Enum.GetNames(typeof(PathOptions.CharacterDirection)), GUILayout.Width(100));
                         }
-                        else
+                        else if (myPathOption.MultipleCharacters[0].Action == PathOptions.CharacterAction.Exit)
                         {
                             EditorGUIUtility.labelWidth = 20;
                             label = "to";
+                            myPathOption.MultipleCharacters[0].Direction = (PathOptions.CharacterDirection)EditorGUILayout.Popup(label, (int)myPathOption.MultipleCharacters[0].Direction, Enum.GetNames(typeof(PathOptions.CharacterDirection)), GUILayout.Width(100));
                         }
-                        myPathOption.MultipleCharacters[0].Direction = (PathOptions.CharacterDirection)EditorGUILayout.Popup(label, (int)myPathOption.MultipleCharacters[0].Direction, Enum.GetNames(typeof(PathOptions.CharacterDirection)), GUILayout.Width(100));
+                        else if (myPathOption.MultipleCharacters[0].Action == PathOptions.CharacterAction.Start)
+                        {
+                            EditorGUIUtility.labelWidth = 20;
+                            label = "at";
+                            myPathOption.MultipleCharacters[0].Position = (PathOptions.CharaterPosition)EditorGUILayout.Popup(label, (int)myPathOption.MultipleCharacters[0].Position, Enum.GetNames(typeof(PathOptions.CharaterPosition)), GUILayout.Width(100));
+                        }
 
                         if (myPathOption.MultipleCharacters[0].Action == PathOptions.CharacterAction.Enter)
                         {
