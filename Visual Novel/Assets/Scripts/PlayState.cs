@@ -103,7 +103,7 @@ public class PlayState : BaseState
                         foreach (PathOptions.CharacterMovement movement in currentOption.MultipleCharacters)
                         {
                             movement.Character.gameObject.SetActive(true);
-                            StartCoroutine(MoveCharacter(movement.Character, movement.Action, movement.Direction, movement.Position, true));
+                            StartCoroutine(MoveCharacter(movement, true));
                         }
                     }
                     else
@@ -262,62 +262,62 @@ public class PlayState : BaseState
             }
             CharacterMoving = true;
             movement.Character.gameObject.SetActive(true);
-            StartCoroutine(MoveCharacter(movement.Character, movement.Action, movement.Direction, movement.Position, false));
+            StartCoroutine(MoveCharacter(movement, false));
         }
-
+        currentState = States.EndDialogueLine;
         yield return null;
     }  
 
-    IEnumerator MoveCharacter(Character character, PathOptions.CharacterAction action, PathOptions.CharacterDirection direction, PathOptions.CharaterPosition position, bool AllAtOnce)
+    IEnumerator MoveCharacter(PathOptions.CharacterMovement movement, bool AllAtOnce)
     {
         MoveCharacterIndex++;
 
         Vector3 targetPosition = new Vector3();
-        switch (action)
+        switch (movement.Action)
         {
             case PathOptions.CharacterAction.Enter:
                 {
-                    switch (position)
+                    switch (movement.Position)
                     {
                         case PathOptions.CharaterPosition.FarLeft:
-                            targetPosition = character.FarLeftPosition;
+                            targetPosition = movement.Character.FarLeftPosition;
                             break;
                         case PathOptions.CharaterPosition.Left:
-                            targetPosition = character.LeftPosition;
+                            targetPosition = movement.Character.LeftPosition;
                             break;
                         case PathOptions.CharaterPosition.Center:
-                            targetPosition = character.CenterPosition;
+                            targetPosition = movement.Character.CenterPosition;
                             break;
                         case PathOptions.CharaterPosition.Right:
-                            targetPosition = character.RightPosition;
+                            targetPosition = movement.Character.RightPosition;
                             break;
                         case PathOptions.CharaterPosition.FarRight:
-                            targetPosition = character.FarRightPosition;
+                            targetPosition = movement.Character.FarRightPosition;
                             break;
                     }
 
-                    switch (direction)
+                    switch (movement.Direction)
                     {
                         case PathOptions.CharacterDirection.Left:
-                            character.transform.position = new Vector2(-12, targetPosition.y);
+                            movement.Character.transform.position = new Vector2(-12, targetPosition.y);
                             break;
                         case PathOptions.CharacterDirection.Right:
-                            character.transform.position = new Vector2(12, targetPosition.y);
+                            movement.Character.transform.position = new Vector2(12, targetPosition.y);
                             break;
                         case PathOptions.CharacterDirection.Top:
-                            character.transform.position = new Vector2(targetPosition.x, 12);
+                            movement.Character.transform.position = new Vector2(targetPosition.x, 12);
                             break;
                         case PathOptions.CharacterDirection.Bottom:
-                            character.transform.position = new Vector2(targetPosition.x, -12);
+                            movement.Character.transform.position = new Vector2(targetPosition.x, -12);
                             break;
                     }
                 }
                 break;
             case PathOptions.CharacterAction.Exit:
                 {
-                    targetPosition = character.gameObject.transform.position;
+                    targetPosition = movement.Character.gameObject.transform.position;
 
-                    switch (direction)
+                    switch (movement.Direction)
                     {
                         case PathOptions.CharacterDirection.Left:
                             targetPosition = new Vector2(-12, targetPosition.y);
@@ -336,43 +336,43 @@ public class PlayState : BaseState
                 break;
             case PathOptions.CharacterAction.Start:
                 {
-                    switch (position)
+                    switch (movement.Position)
                     {
                         case PathOptions.CharaterPosition.FarLeft:
-                            targetPosition = character.FarLeftPosition;
+                            targetPosition = movement.Character.FarLeftPosition;
                             break;
                         case PathOptions.CharaterPosition.Left:
-                            targetPosition = character.LeftPosition;
+                            targetPosition = movement.Character.LeftPosition;
                             break;
                         case PathOptions.CharaterPosition.Center:
-                            targetPosition = character.CenterPosition;
+                            targetPosition = movement.Character.CenterPosition;
                             break;
                         case PathOptions.CharaterPosition.Right:
-                            targetPosition = character.RightPosition;
+                            targetPosition = movement.Character.RightPosition;
                             break;
                         case PathOptions.CharaterPosition.FarRight:
-                            targetPosition = character.FarRightPosition;
+                            targetPosition = movement.Character.FarRightPosition;
                             break;
                     }
 
-                    character.transform.position = new Vector2(targetPosition.x, targetPosition.y);
+                    movement.Character.transform.position = new Vector2(targetPosition.x, targetPosition.y);
                 }
                 break;
         }
         //Make sure all characters are in front
         targetPosition.z = -1;
 
-        while (character.transform.position.x != targetPosition.x || character.transform.position.y != targetPosition.y)
+        while (movement.Character.transform.position.x != targetPosition.x || movement.Character.transform.position.y != targetPosition.y)
         {
             if (Input.GetMouseButtonUp(0) || Input.GetButtonUp("space"))
             {
-                character.transform.position = targetPosition;
+                movement.Character.transform.position = targetPosition;
             }
             else
             {
-                float speed = 5.0f;
+                float speed = movement.MovementSpeed;
                 float step = speed * Time.deltaTime;
-                character.transform.position = Vector3.MoveTowards(character.transform.position, targetPosition, step);
+                movement.Character.transform.position = Vector3.MoveTowards(movement.Character.transform.position, targetPosition, step);
                 yield return null;
             }
         }

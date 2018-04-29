@@ -120,6 +120,15 @@ public class PathOptionsEditor : Editor
                                 myPathOption.MultipleCharacters[i].Orientation = (PathOptions.CharacterOrientation)EditorGUILayout.Popup("Orientation:", (int)myPathOption.MultipleCharacters[i].Orientation, Enum.GetNames(typeof(PathOptions.CharacterOrientation)), GUILayout.Width(135));
                                 GUILayout.EndHorizontal();
                             }
+
+                            if (myPathOption.MultipleCharacters[i].Action != PathOptions.CharacterAction.Start)
+                            {
+                                EditorGUIUtility.labelWidth = 75;
+                                GUILayout.BeginHorizontal();
+                                GUILayout.Space(100);
+                                myPathOption.MultipleCharacters[i].MovementSpeed = EditorGUILayout.FloatField("Speed:", myPathOption.MultipleCharacters[i].MovementSpeed, GUILayout.Width(135));
+                                GUILayout.EndHorizontal();
+                            }
                         }
                         if (GUILayout.Button("Add Movement"))
                         {
@@ -162,6 +171,15 @@ public class PathOptionsEditor : Editor
                             myPathOption.MultipleCharacters[0].Orientation = (PathOptions.CharacterOrientation)EditorGUILayout.Popup("Orientation:", (int)myPathOption.MultipleCharacters[0].Orientation, Enum.GetNames(typeof(PathOptions.CharacterOrientation)), GUILayout.Width(135));
                         }
                         GUILayout.EndHorizontal();
+
+                        if (myPathOption.MultipleCharacters[0].Action != PathOptions.CharacterAction.Start)
+                        {
+                            EditorGUIUtility.labelWidth = 75;
+                            GUILayout.BeginHorizontal();
+                            GUILayout.Space(100);
+                            myPathOption.MultipleCharacters[0].MovementSpeed = EditorGUILayout.FloatField("Speed:", myPathOption.MultipleCharacters[0].MovementSpeed, GUILayout.Width(135));
+                            GUILayout.EndHorizontal();
+                        }
                     }
                 }
                 break;

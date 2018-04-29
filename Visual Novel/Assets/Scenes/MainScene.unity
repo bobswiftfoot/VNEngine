@@ -2032,6 +2032,7 @@ MonoBehaviour:
     Direction: 0
     Position: 2
     Orientation: 0
+    MovementSpeed: 5
     Character: {fileID: 694528798}
     CharacterIndex: 0
   MultipleMovementType: 0
@@ -2763,24 +2764,35 @@ MonoBehaviour:
     Direction: 0
     Position: 0
     Orientation: 0
+    MovementSpeed: 5
     Character: {fileID: 1377448335}
     CharacterIndex: 1
   - Action: 0
     Direction: 3
     Position: 1
     Orientation: 0
+    MovementSpeed: 5
     Character: {fileID: 833108969}
     CharacterIndex: 3
   - Action: 0
     Direction: 2
     Position: 2
     Orientation: 0
+    MovementSpeed: 5
     Character: {fileID: 370935586}
     CharacterIndex: 2
   - Action: 0
     Direction: 1
     Position: 3
     Orientation: 0
+    MovementSpeed: 5
+    Character: {fileID: 694528798}
+    CharacterIndex: 0
+  - Action: 1
+    Direction: 0
+    Position: 0
+    Orientation: 0
+    MovementSpeed: 5
     Character: {fileID: 694528798}
     CharacterIndex: 0
   MultipleMovementType: 1

@@ -66,6 +66,7 @@ public class PathOptions : MonoBehaviour
         public CharacterDirection Direction;
         public CharaterPosition Position;
         public CharacterOrientation Orientation;
+        public float MovementSpeed = 5.0f;
         public Character Character;
         public int CharacterIndex;
     } 
